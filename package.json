@@ -1,0 +1,29 @@
+{
+  "name": "sellercontrol",
+  "version": "1.0.0",
+  "description": "Plugin de co ntrol de los seller central.",
+  "main": "sellercontrol.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gergab00/sellercontrol.git"
+  },
+  "keywords": [
+    "Amazon",
+    "Mercadolibre",
+    "Linio",
+    "Claroshop",
+    "seller"
+  ],
+  "author": "Gerardo González",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Gergab00/sellercontrol/issues"
+  },
+  "homepage": "https://github.com/Gergab00/sellercontrol#readme",
+  "dependencies": {
+    "quagga": "^0.12.1"
+  }
+}
