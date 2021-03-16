@@ -13,8 +13,12 @@ class Config
     */
     public $db_options = [
         [
-        "table"=>"sellercontrol",
-        "query" =>"id INT(10) NOT NULL AUTO_INCREMENT, factura VARCHAR(100) NOT NULL, fecha DATE NOT NULL, proveedor VARCHAR(100) NOT NULL, forma_pago VARCHAR(100) NOT NULL , iva DOUBLE(10,2) NOT NULL , monto DOUBLE(10,2) NOT NULL , created_at datetime NOT NULL, PRIMARY KEY (id)",
+            "table" => "sc_facturas_compras",
+            "query" => "id INT(10) NOT NULL AUTO_INCREMENT, factura VARCHAR(100) NOT NULL, fecha DATE NOT NULL, proveedor VARCHAR(100) NOT NULL, forma_pago VARCHAR(100) NOT NULL, iva DOUBLE(10,2) NOT NULL, monto DOUBLE(10,2) NOT NULL , created_at datetime NOT NULL, PRIMARY KEY (id)",
+        ],
+        [
+            "table" => "sc_productos_compras",
+            "query" => "id INT(10) NOT NULL AUTO_INCREMENT, factura VARCHAR(100) NOT NULL, fecha DATE NOT NULL, descripcion VARCHAR(100) NOT NULL, ASIN VARCHAR(100) NOT NULL, precio_unitario DOUBLE(10,2) NOT NULL, cantidad INT(10) NOT NULL, total DOUBLE(10,2) NOT NULL, created_at datetime NOT NULL, PRIMARY KEY (id)",
         ],
     ];
     /*
@@ -24,90 +28,87 @@ class Config
     * @example ["example_data" => 'foo',]
     * @return void
     */
-    public $plugin_options=[
-    ];
+    public $plugin_options = [];
     /**
-    * Language Option
-    * define a unique word for translate call
-    */
-    public $language_name='antonella';
+     * Language Option
+     * define a unique word for translate call
+     */
+    public $language_name = 'antonella';
     /**
-    * Plugin text prefix
-    * define a unique word for this plugin
-    */
-    public $plugin_prefix='ch_nella';
+     * Plugin text prefix
+     * define a unique word for this plugin
+     */
+    public $plugin_prefix = 'ch_nella';
     /**
-    * POST data process
-    * get the post data and execute the function
-    * @example ['post_data'=>'SELLERCONTROL::function']
-    */
-    public $post=[
-            'factura_nonce' => __NAMESPACE__.'\sellercontrol_factura::guardar',
+     * POST data process
+     * get the post data and execute the function
+     * @example ['post_data'=>'SELLERCONTROL::function']
+     */
+    public $post = [
+        'factura_nonce' => __NAMESPACE__ . '\Controller::guardarFacturaCompra',
 
     ];
     /**
-    * GET data process
-    * get the get data and execute the function
-    * @example ['get_data'=>'SELLERCONTROL::function']
-    */
-    public $get=[
+     * GET data process
+     * get the get data and execute the function
+     * @example ['get_data'=>'SELLERCONTROL::function']
+     */
+    public $get = [];
+    /**
+     * add_filter data functions
+     * @input array
+     * @example ['body_class','SELLERCONTROL::function',10,2]
+     * @example ['body_class',['SELLERCONTROL','function'],10,2]
+     */
+    public $add_filter = [];
+    /**
+     * add_action data functions
+     * @input array
+     * @example ['body_class','SELLERCONTROL::function',10,2]
+     * @example ['body_class',['SELLERCONTROL','function'],10,2]
+     */
+    public $add_action = [
+        ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarJS', 10, 3],
     ];
     /**
-    * add_filter data functions
-    * @input array
-    * @example ['body_class','SELLERCONTROL::function',10,2]
-    * @example ['body_class',['SELLERCONTROL','function'],10,2]
-    */
-    public $add_filter=[
-    ];
-    /**
-    * add_action data functions
-    * @input array
-    * @example ['body_class','SELLERCONTROL::function',10,2]
-    * @example ['body_class',['SELLERCONTROL','function'],10,2]
-    */
-    public $add_action=[
-        ['wp_enqueue_scripts','SELLERCONTROL\sellercontrol_factura::sellercontrol_insertar_js',10,3],
-    ];
-    /**
-    * add custom shortcodes
-    * @input array
-    * @example [['example','SELLERCONTROL\ExampleController::example_shortcode']]
-    */
-    public $shortcodes=[
-        ['sellercontrol_factura_form','SELLERCONTROL\sellercontrol_factura::render']
+     * add custom shortcodes
+     * @input array
+     * @example [['example','SELLERCONTROL\ExampleController::example_shortcode']]
+     */
+    public $shortcodes = [
+        ['sellercontrol_factura_form', 'SELLERCONTROL\Views::renderFacturaForm'],
+        ['sellercontrol_factura_table', 'SELLERCONTROL\Views::renderFacturaTable']
     ];
     /**
      * add Gutenberg's blocks
      */
-    public $gutenberg_blocks =[
-    ];
+    public $gutenberg_blocks = [];
     /**
-    * Dashboard
+     * Dashboard
 
-    * @reference: https://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget
-    */
-    public $dashboard=[
+     * @reference: https://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget
+     */
+    public $dashboard = [
         [
-        'slug'      => '',
-        'name'      => '',
-        'function'  => '', // example: __NAMESPACE__.'\Admin\PageAdmin::DashboardExample',
-        'callback'  => '',
-        'args'      => '',
+            'slug'      => '',
+            'name'      => '',
+            'function'  => '', // example: __NAMESPACE__.'\Admin\PageAdmin::DashboardExample',
+            'callback'  => '',
+            'args'      => '',
         ]
 
     ];
     /**
-    * Files for use in Dashboard
-    */
-    public $files_dashboard=[];
+     * Files for use in Dashboard
+     */
+    public $files_dashboard = [];
 
     /*
     * Plugin menu
     * set your menu option here
     */
-    public $plugin_menu=[
-    /*
+    public $plugin_menu = [
+        /*
         [
             "path"      => ["page"],
             "name"      => "My Custom Page",
@@ -168,8 +169,7 @@ class Config
                 "slug"      => "sub-option",
                 "function"  => __NAMESPACE__."\Admin::option_page",
             ]
-        */
-        ];
+        */];
 
     /**
      * Custom Post Type
@@ -179,7 +179,7 @@ class Config
      * https://codex.wordpress.org/Function_Reference/register_post_type
      */
 
-    public $post_types =[
+    public $post_types = [
         [
             "singular"      => "",
             "plural"        => "",
@@ -196,7 +196,7 @@ class Config
             */
         ],
     ];
-    
+
     /**
      * Taxonomies
      * for make taxonomies
@@ -218,9 +218,9 @@ class Config
             "rewrite"       =>[],
             "capabilities"  =>[]
             */
-        ] 
+        ]
     ];
-    
+
     /**
      * Widget
      * For register a Widget please:
@@ -228,6 +228,5 @@ class Config
      * @input array
      * @example public $widget = [__NAMESPACE__.'\YouClassWidget']  //only the class
      */
-    public $widgets=[];
-    
+    public $widgets = [];
 }

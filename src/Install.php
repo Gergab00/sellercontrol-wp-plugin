@@ -21,9 +21,7 @@ class Install
     {
         $config = new Config;
         $install = new Install;
-        $init = new sellercontrol_init;
         $install->plugin_options($config->plugin_options);
-        //$install->table_create($init->options); db_options
         $install->table_create($config->db_options);
     }
     /*

@@ -2,14 +2,17 @@
 
 namespace SELLERCONTROL;
 
-class sellercontrol_factura
+class Views
 {
 
     public function __construct()
     {
     }
 
-    public function render()
+    /* 
+    Funcion para mostar el form para poder agregar la factura.
+    */
+    public function renderFacturaForm()
     {
         ob_start();
 ?>
@@ -26,8 +29,8 @@ class sellercontrol_factura
                 </div>
                 <div class="form-input col-sm-12 col-lg-6">
                     <label class="form-label" for="proveedor">Proveedor</label>
-                    <input class="form-control" list="datalistOptions" id="proveedor" name="proveedor" placeholder="Buscar Proveedor...">
-                    <datalist id="datalistOptions">
+                    <input class="form-control" list="datalistProveedor" id="proveedor" name="proveedor" placeholder="Buscar Proveedor...">
+                    <datalist id="datalistProveedor">
                         <option value="Juguetialegria">
                         <option value="Amazon">
                         <option value="Neza">
@@ -37,8 +40,8 @@ class sellercontrol_factura
                 </div>
                 <div class="form-input col-sm-12 col-lg-6">
                     <label class="form-label" for="forma_pago">Forma de Pago</label>
-                    <input class="form-control" list="datalistOptions" id="forma_pago" name="forma_pago" placeholder="Buscar Forma de Pago...">
-                    <datalist id="datalistOptions">
+                    <input class="form-control" list="datalistFormaPago" id="forma_pago" name="forma_pago" placeholder="Buscar Forma de Pago...">
+                    <datalist id="datalistFormaPago">
                         <option value="Efectivo">
                         <option value="Tarjeta de Débito">
                         <option value="Tarjeta de Crédito Home Depot">
@@ -67,7 +70,7 @@ class sellercontrol_factura
                     <table class="table table-bordered table-hover" id="invoiceItem">
                         <tr>
                             <th width="2%"><input id="checkAll" class="formcontrol" type="checkbox"></th>
-                            <th width="15%">Prod. No</th>
+                            <th width="15%">ASIN</th>
                             <th width="38%">Nombre Producto</th>
                             <th width="15%">Cantidad</th>
                             <th width="15%">Precio</th>
@@ -98,49 +101,35 @@ class sellercontrol_factura
 
         </form>
 <?php
-
         return ob_get_clean();
     }
 
-    public static function guardar()
+    /* 
+    
+    */
+    public static function renderFacturaTable()
     {
-        global $wpdb; // Este objeto global nos permite trabajar con la BD de WP
-
+        global $wpdb;
         $tabla_sellercontrol = $wpdb->prefix . 'sellercontrol';
-        $factura = sanitize_text_field($_REQUEST['factura']);   
-        $fecha = date($_REQUEST['fecha']);
-        $proveedor = sanitize_text_field($_REQUEST['proveedor']);
-        $forma_pago = sanitize_text_field($_REQUEST['forma_pago']);
-        $iva = (double) $_REQUEST['iva'];
-        $monto = (double) $_REQUEST['monto'];
-        $created_at = date('Y-m-d H:i:s');
-
-        $ret = $wpdb->insert(
-            $tabla_sellercontrol,
-            array(
-                'factura' => $factura,
-                'fecha' => $fecha,
-                'proveedor' => $proveedor,
-                'forma_pago' => $forma_pago,
-                'iva' => $iva,
-                'monto' => $monto,
-                'created_at' => $created_at,
-            )
-        );
-
-        if($ret){
-        echo    '<div class="alert alert-success" role="alert">
-            Registro Creado con Éxito. Filas afectadas '.$ret.'
-                </div>';
-        }else{
-            echo    '<div class="alert alert-danger" role="alert">Error en la creacion del registro</div>';
+        $registros = $wpdb->get_results("SELECT * FROM $tabla_sellercontrol");
+        echo '<div class="wrap"><h1>Registro de Compras</h1>';
+        echo '<table class="wp-list-table widefat fixed striped">';
+        echo '<thead><tr><th width="30%">Factura</th><th width="20%">Fecha</th>';
+        echo '<th>Proveedor</th><th>Forma de Pago</th><th>IVA</th><th>Monto</th><th>WP</th><th>Total</th>';
+        echo '</tr></thead>';
+        echo '<tbody id="the-list">';
+        foreach ($registros as $registro) {
+            $factura = esc_textarea($registro->factura);
+            $fecha = esc_textarea($registro->fecha);
+            $proveedor = (int) $registro->proveedor;
+            $forma_pago = (int) $registro->forma_pago;
+            $iva = (int) $registro->iva;
+            $monto = (int) $registro->monto;
+            echo "<tr><td><a href='#' title='$factura'>$factura</a></td>";
+            echo "<td>$fecha</td><td>$proveedor</td><td>$forma_pago</td>";
+            echo "<td>$iva</td><td>$monto</td>";
+            echo "</tr>";
         }
-        
-    }
-
-    public static function sellercontrol_insertar_js()
-    {
-        wp_register_script('invoice', plugins_url('/assets/js/invoice.js', dirname(__FILE__)), array('jquery'), '1', true);
-        wp_enqueue_script('invoice');
+        echo '</tbody></table></div>';
     }
 }
