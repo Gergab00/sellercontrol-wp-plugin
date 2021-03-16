@@ -61,6 +61,7 @@ add_shortcode('sellercontrol_factura_form', 'factura_form');
  */
 function factura_form()
 {
+    
     global $wpdb; // Este objeto global nos permite trabajar con la BD de WP
     // Si viene del formulario  grabamos en la base de datos
     if (!empty($_POST)

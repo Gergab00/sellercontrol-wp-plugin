@@ -42,6 +42,8 @@ class Config
     * @example ['post_data'=>'SELLERCONTROL::function']
     */
     public $post=[
+            'factura_nonce' => __NAMESPACE__.'\sellercontrol_factura::guardar',
+
     ];
     /**
     * GET data process
@@ -65,7 +67,7 @@ class Config
     * @example ['body_class',['SELLERCONTROL','function'],10,2]
     */
     public $add_action=[
-        ['wp_enqueue_scripts','SELLERCONTROL\sellercontrol_factura::sellercontrol_insertar_js',10,3]
+        ['wp_enqueue_scripts','SELLERCONTROL\sellercontrol_factura::sellercontrol_insertar_js',10,3],
     ];
     /**
     * add custom shortcodes
