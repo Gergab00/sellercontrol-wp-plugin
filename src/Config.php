@@ -60,7 +60,9 @@ class Config
      * @example ['body_class','SELLERCONTROL::function',10,2]
      * @example ['body_class',['SELLERCONTROL','function'],10,2]
      */
-    public $add_filter = [];
+    public $add_filter = [
+        ['script_loader_tag', 'SELLERCONTROL\add_async_defer_attributes::add_async_defer_attributes', 10, 2]
+    ];
     /**
      * add_action data functions
      * @input array
@@ -69,6 +71,9 @@ class Config
      */
     public $add_action = [
         ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarJS', 10, 3],
+        ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarCSS', 10, 3],
+        ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::obenerDatosTabla', 11, 4],
+
     ];
     /**
      * add custom shortcodes

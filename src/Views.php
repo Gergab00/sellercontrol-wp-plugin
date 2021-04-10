@@ -107,29 +107,13 @@ class Views
     /* 
     
     */
-    public static function renderFacturaTable()
+    public function renderFacturaTable()
     {
-        global $wpdb;
-        $tabla_sellercontrol = $wpdb->prefix . 'sellercontrol';
-        $registros = $wpdb->get_results("SELECT * FROM $tabla_sellercontrol");
-        echo '<div class="wrap"><h1>Registro de Compras</h1>';
-        echo '<table class="wp-list-table widefat fixed striped">';
-        echo '<thead><tr><th width="30%">Factura</th><th width="20%">Fecha</th>';
-        echo '<th>Proveedor</th><th>Forma de Pago</th><th>IVA</th><th>Monto</th><th>WP</th><th>Total</th>';
-        echo '</tr></thead>';
-        echo '<tbody id="the-list">';
-        foreach ($registros as $registro) {
-            $factura = esc_textarea($registro->factura);
-            $fecha = esc_textarea($registro->fecha);
-            $proveedor = (int) $registro->proveedor;
-            $forma_pago = (int) $registro->forma_pago;
-            $iva = (int) $registro->iva;
-            $monto = (int) $registro->monto;
-            echo "<tr><td><a href='#' title='$factura'>$factura</a></td>";
-            echo "<td>$fecha</td><td>$proveedor</td><td>$forma_pago</td>";
-            echo "<td>$iva</td><td>$monto</td>";
-            echo "</tr>";
-        }
-        echo '</tbody></table></div>';
+        ob_start();
+        ?>
+        <table id="example" width="100%"></table>
+        <?php
+         return ob_get_clean();
+        
     }
 }
