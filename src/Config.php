@@ -4,6 +4,7 @@ namespace SELLERCONTROL;
 
 class Config
 {
+
     /*
     * Data base options db_options
     * create the database values value
@@ -61,7 +62,7 @@ class Config
      * @example ['body_class',['SELLERCONTROL','function'],10,2]
      */
     public $add_filter = [
-        ['script_loader_tag', 'SELLERCONTROL\add_async_defer_attributes::add_async_defer_attributes', 10, 2]
+        ['script_loader_tag', 'SELLERCONTROL\add_async_defer_attributes::add_async_defer_attributes', 10, 2],
     ];
     /**
      * add_action data functions
@@ -73,6 +74,12 @@ class Config
         ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarJS', 10, 3],
         ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarCSS', 10, 3],
         ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::obenerDatosTabla', 11, 4],
+        ['add_meta_boxes', __NAMESPACE__.'\woocommerce\WooMeta::createBoxOtherData',10,5],
+        ['add_meta_boxes', __NAMESPACE__.'\woocommerce\WooMeta::createBoxAmazonData',10,5],
+        ['admin_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarJSAdmin', 10, 6],
+        ['admin_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarCSSAdmin', 10, 7],
+        ['save_post',__NAMESPACE__.'\woocommerce\WooMeta::saveInfo',10,5]
+        //['wp_roles_init', 'SELLERCONTROL\Usuarios::crearUsuario', 10,3],
 
     ];
     /**
@@ -234,4 +241,5 @@ class Config
      * @example public $widget = [__NAMESPACE__.'\YouClassWidget']  //only the class
      */
     public $widgets = [];
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace SELLERCONTROL;
+use SELLERCONTROL\Users;
 
 class Views
 {
@@ -14,6 +15,9 @@ class Views
     */
     public function renderFacturaForm()
     {
+        $usuarios = new Users;
+        echo 'Admin: '.$usuarios->is_admin();
+        if ($usuarios->is_asociado() || $usuarios->is_admin()) {
         ob_start();
 ?>
         <form action="<?php get_the_permalink(); ?>" method="post" id="form_factura" class="cuestionario">
@@ -102,6 +106,9 @@ class Views
         </form>
 <?php
         return ob_get_clean();
+        }else {
+            echo 'No estas autorizado';
+        }
     }
 
     /* 

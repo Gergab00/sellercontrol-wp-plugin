@@ -26,7 +26,9 @@
     ],
     "license": "MIT",
     "require-dev":{
-        "vlucas/phpdotenv":"^3.5"
+        "vlucas/phpdotenv":"^3.5",
+        "squizlabs/php_codesniffer": "*",
+        "wp-coding-standards/wpcs": "^0.13.1"
     },
     "autoload": {
         "psr-4": {"SELLERCONTROL\\": "src/"},
@@ -44,6 +46,12 @@
             "php antonella namespace",
             "php -r \"copy('.env-example', '.env');\"",
             "php antonella add blade"
+        ],
+        "post-install-cmd": [
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
+        ],
+        "post-update-cmd": [
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
         ]
     }
 }

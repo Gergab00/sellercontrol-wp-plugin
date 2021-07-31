@@ -2,6 +2,7 @@
 
 namespace SELLERCONTROL;
 use SELLERCONTROL\Config;
+use SELLERCONTROL\Usuarios;
 use SELLERCONTROL\sellercontrol_init;
 class Install
 {
@@ -23,6 +24,8 @@ class Install
         $install = new Install;
         $install->plugin_options($config->plugin_options);
         $install->table_create($config->db_options);
+        $usuarios = new Usuarios;
+        $usuarios->crearUsuario();
     }
     /*
     * Table Updates

@@ -25,10 +25,22 @@
             wp_enqueue_script('quaggaJS');*/
         }
 
+        public static function insertarJSAdmin()
+        {
+            wp_register_script( 'Bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js', array('jquery'), '5.0.2', true );
+            wp_enqueue_script( 'Bootstrap');
+        }
+
         public static function insertarCSS()
         {
             wp_register_style( 'cdn-Datatables-css', 'https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css', null, '1.10.24');
             wp_enqueue_style( 'cdn-Datatables-css');
+        }
+
+        public static function insertarCSSAdmin()
+        {
+            wp_register_style( 'Bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', null, '5.0.2');
+            wp_enqueue_style( 'Bootstrap');
         }
 
         public static function obenerDatosTabla()

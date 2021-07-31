@@ -1,6 +1,8 @@
 <?php
 namespace SELLERCONTROL;
 
+use SELLERCONTROL\woocommerce\WooMeta;
+
 class Init
 {
     public function __construct()
@@ -10,6 +12,5 @@ class Init
 
     public static function index()
     {
-
     }
 }
