@@ -71,14 +71,14 @@ class Config
      * @example ['body_class',['SELLERCONTROL','function'],10,2]
      */
     public $add_action = [
-        ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarJS', 10, 3],
-        ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarCSS', 10, 3],
-        ['wp_enqueue_scripts', 'SELLERCONTROL\Enqueue::obenerDatosTabla', 11, 4],
-        ['add_meta_boxes', __NAMESPACE__.'\woocommerce\WooMeta::createBoxOtherData',10,5],
-        ['add_meta_boxes', __NAMESPACE__.'\woocommerce\WooMeta::createBoxAmazonData',10,5],
-        ['admin_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarJSAdmin', 10, 6],
-        ['admin_enqueue_scripts', 'SELLERCONTROL\Enqueue::insertarCSSAdmin', 10, 7],
-        ['save_post',__NAMESPACE__.'\woocommerce\WooMeta::saveInfo',10,5]
+        ['wp_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarJS', 10, 3],
+        ['wp_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarCSS', 10, 3],
+        ['wp_enqueue_scripts', __NAMESPACE__.'\Enqueue::obenerDatosTabla', 11, 4],
+        ['add_meta_boxes', 'SELLERCONTROL\WooMeta::createBoxOtherData',10,5],
+        ['add_meta_boxes', __NAMESPACE__.'\WooMeta::createBoxAmazonData',10,5],
+        ['admin_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarJSAdmin', 10, 6],
+        ['admin_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarCSSAdmin', 10, 7],
+        ['save_post',__NAMESPACE__.'\WooMeta::saveInfo',10,5]
         //['wp_roles_init', 'SELLERCONTROL\Usuarios::crearUsuario', 10,3],
 
     ];
@@ -88,8 +88,9 @@ class Config
      * @example [['example','SELLERCONTROL\ExampleController::example_shortcode']]
      */
     public $shortcodes = [
-        ['sellercontrol_factura_form', 'SELLERCONTROL\Views::renderFacturaForm'],
-        ['sellercontrol_factura_table', 'SELLERCONTROL\Views::renderFacturaTable']
+        ['sellercontrol_factura_form', __NAMESPACE__.'\Views::renderFacturaForm'],
+        ['sellercontrol_factura_table', __NAMESPACE__.'\Views::renderFacturaTable'],
+        ['dcms_form_login', __NAMESPACE__.'\Views::dcms_form_login_config']
     ];
     /**
      * add Gutenberg's blocks

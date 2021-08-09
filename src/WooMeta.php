@@ -1,5 +1,6 @@
 <?php
-    namespace SELLERCONTROL\woocommerce;
+
+namespace SELLERCONTROL;
           
     class WooMeta
     {
@@ -38,6 +39,12 @@
     <div class="col">
         <input type="checkbox" id="is_droppshiping" name=is_droppshiping" <?php checked( $check, 'on' ); ?> />
         <label for="is_droppshiping">¿Es Droppshiping?</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <label for=""></label>
     </div>
 </div>
 

@@ -1,3 +1,4 @@
+//let products = {};
 jQuery(function($) {
 $(document).ready(function(){
 	$(document).on('click', '#checkAll', function() {          	
@@ -10,14 +11,26 @@ $(document).ready(function(){
 			$('#checkAll').prop('checked', false);
 		}
 	});  
-	var count = $(".itemRow").length;
+	let count = $(".itemRow").length;
 	$(document).on('click', '#addRows', function() { 
 		count++;
-		var htmlRows = '';
+		let htmlRows = '';
 		htmlRows += '<tr>';
 		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';          
-		htmlRows += '<td><input type="text" name="productCode[]" id="productCode_'+count+'" class="form-control" autocomplete="off"></td>';          
-		htmlRows += '<td><input type="text" name="productName[]" id="productName_'+count+'" class="form-control" autocomplete="off"></td>';	
+		htmlRows += '<td><input type="text" list="asinOptions" name="productCode[]" id="productCode_'+count+'" class="form-control" autocomplete="off">';
+		htmlRows += '<datalist id="asinOptions">';
+		for (let i = 0; i < Object.keys(products).length; i++) {
+			let a = Object.keys(products)[i];
+			htmlRows+='<option value="'+a+'">';
+		}
+		htmlRows += '</datalist></td>';
+		htmlRows += '<td><input type="text" list="productNameOptions" name="productName[]" id="productName_'+count+'" class="form-control" autocomplete="off"></td>';
+		htmlRows += '<datalist id="productNameOptions">';
+		for (let i = 0; i < Object.values(products).length; i++) {
+			let a = Object.values(products)[i];
+			htmlRows+='<option value="'+a+'">';
+		}
+		htmlRows += '</datalist></td>';
 		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
 		htmlRows += '<td><input type="number" name="price[]" id="price_'+count+'" class="form-control price" autocomplete="off"></td>';		 
 		htmlRows += '<td><input type="number" name="total[]" id="total_'+count+'" class="form-control total" autocomplete="off"></td>';          
@@ -41,8 +54,8 @@ $(document).ready(function(){
 		calculateTotal();
 	});	
 	$(document).on('blur', "#amountPaid", function(){
-		var amountPaid = $(this).val();
-		var totalAftertax = $('#totalAftertax').val();	
+		let amountPaid = $(this).val();
+		let totalAftertax = $('#totalAftertax').val();	
 		if(amountPaid && totalAftertax) {
 			totalAftertax = totalAftertax-amountPaid;			
 			$('#amountDue').val(totalAftertax);
@@ -51,7 +64,7 @@ $(document).ready(function(){
 		}	
 	});	
 	$(document).on('click', '.deleteInvoice', function(){
-		var id = $(this).attr("id");
+		let id = $(this).attr("id");
 		if(confirm("Are you sure you want to remove this?")){
 			$.ajax({
 				url:"action.php",
@@ -68,31 +81,53 @@ $(document).ready(function(){
 			return false;
 		}
 	});
+
+	$(document).on('focus', "[id^=product]",function(e) {
+		let id;
+		e.preventDefault();
+		id = $(this).attr("id");
+		console.log("Focus on id", id);
+
+		if (id.includes("product")) {
+			let r = id.slice(-1);
+			console.log("Substring: ",r)
+			$('#productCode_'+r).change(function (e) {
+                e.preventDefault();
+                let value = $('#productCode_'+r).val();
+                let res = products[value];
+                //console.log(res);
+                $("#productName_"+r).val(res);
+
+            });
+		}
+	});
 });	
+
+
 function calculateTotal(){
-	var totalAmount = 0; 
+	let totalAmount = 0; 
 	$("[id^='price_']").each(function() {
-		var id = $(this).attr('id');
+		let id = $(this).attr('id');
 		id = id.replace("price_",'');
-		var price = $('#price_'+id).val();
-		var quantity  = $('#quantity_'+id).val();
+		let price = $('#price_'+id).val();
+		let quantity  = $('#quantity_'+id).val();
 		if(!quantity) {
 			quantity = 1;
 		}
-		var total = price*quantity;
+		let total = price*quantity;
 		$('#total_'+id).val(parseFloat(total));
 		totalAmount += total;			
 	});
 	$('#subTotal').val(parseFloat(totalAmount));	
-	var taxRate = $("#taxRate").val();
-	var subTotal = $('#subTotal').val();	
+	let taxRate = $("#taxRate").val();
+	let subTotal = $('#subTotal').val();	
 	if(subTotal) {
-		var taxAmount = subTotal*taxRate/100;
+		let taxAmount = subTotal*taxRate/100;
 		$('#taxAmount').val(taxAmount);
 		subTotal = parseFloat(subTotal)+parseFloat(taxAmount);
 		$('#totalAftertax').val(subTotal);		
-		var amountPaid = $('#amountPaid').val();
-		var totalAftertax = $('#totalAftertax').val();	
+		let amountPaid = $('#amountPaid').val();
+		let totalAftertax = $('#totalAftertax').val();	
 		if(amountPaid && totalAftertax) {
 			totalAftertax = totalAftertax-amountPaid;			
 			$('#amountDue').val(totalAftertax);
