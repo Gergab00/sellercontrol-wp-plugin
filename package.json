@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "log": "git log --oneline --decorate --graph --all"
+    "log": "git log --oneline --decorate --graph --all",
+    "unir" : "concurrently --kill-others \"git checkout master\" \"git merge dev\" \"git checkout dev\""
   },
   "repository": {
     "type": "git",
