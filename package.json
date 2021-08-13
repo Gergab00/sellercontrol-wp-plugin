@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "log": "git log --oneline --decorate --graph --all"
+    "log": "git log --oneline --decorate --graph --all",
+    "sync": "git push origin --all",
+    "unir" : "git checkout master\n$ git merge dev"
   },
   "repository": {
     "type": "git",

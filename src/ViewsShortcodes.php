@@ -3,7 +3,7 @@
 namespace SELLERCONTROL;
 use SELLERCONTROL\Users;
 
-class Views
+class ViewsShortcodes
 {
 
     public function __construct()

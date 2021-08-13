@@ -82,9 +82,9 @@
             $products = wc_get_products( $args );
             $productObject = [];
             foreach($products as $product) {
-                //echo '"'.json_decode($product, true)['sku'].'"'.' : "'.json_decode($product, true)['name'].'"'.",\n";
-                //echo $product;
+    
                 $productObject[json_decode($product, true)['sku']] = json_decode($product, true)['name'];
+                
             }
 
             return $productObject;

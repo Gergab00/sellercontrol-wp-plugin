@@ -88,9 +88,9 @@ class Config
      * @example [['example','SELLERCONTROL\ExampleController::example_shortcode']]
      */
     public $shortcodes = [
-        ['sellercontrol_factura_form', __NAMESPACE__.'\Views::renderFacturaForm'],
-        ['sellercontrol_factura_table', __NAMESPACE__.'\Views::renderFacturaTable'],
-        ['dcms_form_login', __NAMESPACE__.'\Views::dcms_form_login_config']
+        ['sellercontrol_factura_form', __NAMESPACE__.'\ViewsShortcodes::renderFacturaForm'],
+        ['sellercontrol_factura_table', __NAMESPACE__.'\ViewsShortcodes::renderFacturaTable'],
+        ['dcms_form_login', __NAMESPACE__.'\ViewsShortcodes::dcms_form_login_config']
     ];
     /**
      * add Gutenberg's blocks
