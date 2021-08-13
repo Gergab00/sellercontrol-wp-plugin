@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "log": "git log --oneline --decorate --graph --all",
     "sync": "git push origin --all",
-    "unir" : "git checkout master\n$ git merge dev"
+    "unir" : "concurrently --kill-others \"git checkout master\" \"git merge dev\" \"git checkout dev\""
   },
   "repository": {
     "type": "git",
