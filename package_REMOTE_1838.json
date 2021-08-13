@@ -1,0 +1,24 @@
+{
+  "name": "sellercontrol",
+  "version": "1.0.0",
+  "description": "![Antonella Framework](https://antonellaframework.com/wp-content/uploads/2018/06/anonella-repositorio.png)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "log": "git log --oneline --decorate --graph --all",
+    "unir" : "concurrently --kill-others \"git checkout master\" \"git merge dev\" \"git checkout dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gergab00/sellercontrol.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gergab00/sellercontrol/issues"
+  },
+  "homepage": "https://github.com/Gergab00/sellercontrol#readme",
+  "dependencies": {
+    "puppeteer-web": "0.0.3"
+  }
+}
