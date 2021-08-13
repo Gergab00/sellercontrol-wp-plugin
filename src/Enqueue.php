@@ -17,9 +17,12 @@
         {
             wp_register_script('invoice', plugins_url('/assets/js/invoice.js', dirname(__FILE__)), array('jquery'), '1', true);
             wp_enqueue_script('invoice');
+            wp_localize_script('invoice', 'products', Enqueue::obtenerDatosProductos());
 
             wp_register_script('cdn-Datatables', 'https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js', array('jquery'), '1.10.24', false);
             wp_enqueue_script('cdn-Datatables');
+
+            wp_enqueue_script( 'jquery-ui-autocomplete' );
 
             /*wp_register_script('quaggaJS', plugins_url('/assets/js/quaggaJS.js', dirname(__FILE__)), array(), '1', true);
             wp_enqueue_script('quaggaJS');*/
@@ -69,5 +72,21 @@
         }
 
         wp_localize_script('datatables','dataSet',$dataSet);
+        }
+
+        public static function obtenerDatosProductos()
+        {
+            $args = array(
+                'status' => 'publish',
+            );
+            $products = wc_get_products( $args );
+            $productObject = [];
+            foreach($products as $product) {
+    
+                $productObject[json_decode($product, true)['sku']] = json_decode($product, true)['name'];
+                
+            }
+
+            return $productObject;
         }
     }
