@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "log": "git log --oneline --decorate --graph --all",
     "sync": "git push origin --all",
-    "unir" : "concurrently --kill-others \"git checkout master\" \"git merge dev\" \"git checkout dev\""
+    "unir": "concurrently --kill-others \"git checkout master\" \"git merge dev\" \"git checkout dev\""
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/Gergab00/sellercontrol#readme",
   "dependencies": {
-    "puppeteer-web": "0.0.3"
+    "quagga": "^0.12.1"
   }
 }
