@@ -76,6 +76,7 @@ class Config
         ['wp_enqueue_scripts', __NAMESPACE__.'\Enqueue::obenerDatosTabla', 11, 4],
         ['add_meta_boxes', 'SELLERCONTROL\WooMeta::createBoxOtherData',10,5],
         ['add_meta_boxes', __NAMESPACE__.'\WooMeta::createBoxAmazonData',10,5],
+        ['add_meta_boxes', __NAMESPACE__.'\WooMeta::createBoxMercadoLibreData',10,5],
         ['admin_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarJSAdmin', 10, 6],
         ['admin_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarCSSAdmin', 10, 7],
         ['save_post',__NAMESPACE__.'\WooMeta::saveInfo',10,5]
@@ -90,7 +91,8 @@ class Config
     public $shortcodes = [
         ['sellercontrol_factura_form', __NAMESPACE__.'\ViewsShortcodes::renderFacturaForm'],
         ['sellercontrol_factura_table', __NAMESPACE__.'\ViewsShortcodes::renderFacturaTable'],
-        ['dcms_form_login', __NAMESPACE__.'\ViewsShortcodes::dcms_form_login_config']
+        ['dcms_form_login', __NAMESPACE__.'\ViewsShortcodes::dcms_form_login_config'],
+        ['sellercontrol_scanner', __NAMESPACE__.'\ViewsShortcodes::iniciarScanner']
     ];
     /**
      * add Gutenberg's blocks

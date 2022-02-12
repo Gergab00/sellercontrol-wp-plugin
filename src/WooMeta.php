@@ -18,7 +18,9 @@ class WooMeta {
 		$brand_name		= get_post_meta( $post->ID, '_brand_name', true );
 		$ean			= get_post_meta( $post->ID, '_ean', true );
 		$manufacturer	= get_post_meta( $post->ID, '_manufacturer', true );
+		$marketsync_category_code = get_post_meta($post->ID, '_marketsync_category_code', true);
 		$check        = isset( $values['is_droppshiping'] ) ? esc_attr( $values['is_droppshiping'][0] ) : '';
+		$volumen		= get_post_meta( $post->ID, '_volumen', true );
 		
 		?>
 <div class="row">
@@ -35,14 +37,15 @@ class WooMeta {
 		<input type="text" name="manufacturer" id="manufacturer" value="<?php echo esc_html( $manufacturer ); ?>" />
 	</div>
 	<div class="col">
-		<input type="checkbox" id="is_droppshiping" name=is_droppshiping" <?php checked( $check, 'on' ); ?> />
+		<input type="checkbox" id="is_droppshiping" name="is_droppshiping" <?php checked( $check, 'on' ); ?> />
 		<label for="is_droppshiping">¿Es Droppshiping?</label>
 	</div>
 </div>
 
-<div class="row">
+<div class="row m-3">
 	<div class="col">
-		<label for=""></label>
+	<label for="volumen">Volumen(Litros)</label>	
+	<input type="number" name="volumen" id="volumen" step="0.01" value="<?php echo esc_html($volumen); ?>">
 	</div>
 </div>
 
@@ -50,14 +53,23 @@ class WooMeta {
 	}
 
 	static public function createBoxAmazonData() {
-		add_meta_box( 'amazon-datos', 'Datos de Amazon del prodcto', __NAMESPACE__ . '\WooMeta::createFieldsAmazonData', 'product', 'normal', 'high' );
+		add_meta_box( 'amazon-datos', 'Datos de Amazon del producto', __NAMESPACE__ . '\WooMeta::createFieldsAmazonData', 'product', 'normal', 'high' );
 	}
 
 	static public function createFieldsAmazonData( $post ) {
 		wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
-		$values = get_post_custom( $post->ID );
+		$values 			= get_post_custom( $post->ID );
+		$amazon_category	= get_post_meta( $post->ID, '_amazon_category', true );
 		$n      = 0;
 		?>
+<div class="row">
+	<div class="col">
+		<label for="amazon_category">Categoria de Amazon</label>
+		<input type="text" name="amazon_category" id="amazon_category"
+			value="<?php echo esc_html( $amazon_category ); ?>" disabled />
+	</div>
+</div>
+
 <div class="row">
 	<div class="col">
 		<div class="list-group">
@@ -79,6 +91,36 @@ class WooMeta {
 		}
 		?>
 		</div>
+	</div>
+</div>
+<?php
+	}
+
+	static public function createBoxMercadoLibreData() {
+		add_meta_box( 'mercadolibre-datos', 'Datos de Mercadolibre del producto', __NAMESPACE__ . '\WooMeta::createFieldsMercadoLibreData', 'product', 'normal', 'high' );
+	}
+
+	static public function createFieldsMercadoLibreData( $post ) {
+		wp_nonce_field( 'woocommerce_save_data', 'woocommerce_meta_nonce' );
+		$mercadolibre_category_code	= get_post_meta( $post->ID, '_mercadolibre_category_code', true );
+		$mercadolibre_category_name	= get_post_meta( $post->ID, '_mercadolibre_category_name', true );
+		$claroshop_category_code = get_post_meta( $post->ID, '_claroshop_category_code', true);
+		?>
+<div class="row">
+	<div class="col">
+		<label for="mercadolibre_category_code">Código de Categoria de Mercado Libre</label>
+		<input type="text" name="mercadolibre_category_code" id="mercadolibre_category_code"
+			value="<?php echo esc_html( $mercadolibre_category_code); ?>" />
+	</div>
+	<div class="col">
+		<label for="mercadolibre_category_name">Nombre de la Categoria de Mercado Libre</label>
+		<input type="text" name="mercadolibre_category_name" id="mercadolibre_category_name"
+			value="<?php echo esc_html( $mercadolibre_category_name); ?>" />
+	</div>
+	<div class="col">
+		<label for="claroshop_category_code">Nombre de la Categoria de Claroshop</label>
+		<input type="text" name="claroshop_category_code" id="claroshop_category_code"
+			value="<?php echo esc_html( $claroshop_category_code); ?>" />
 	</div>
 </div>
 <?php
@@ -124,6 +166,46 @@ class WooMeta {
 				$post_id,
 				'_manufacturer',
 				$_POST['manufacturer']
+			);
+		}
+		
+		if ( array_key_exists( 'marketsync_category_code', $_POST ) ) {
+			update_post_meta(
+				$post_id,
+				'_marketsync_category_code',
+				$_POST['marketsync_category_code']
+			);
+		}
+
+		if ( array_key_exists( 'mercadolibre_category_code', $_POST ) ) {
+			update_post_meta(
+				$post_id,
+				'_mercadolibre_category_code',
+				$_POST['mercadolibre_category_code']
+			);
+		}
+
+		if ( array_key_exists( 'mercadolibre_category_name', $_POST ) ) {
+			update_post_meta(
+				$post_id,
+				'_mercadolibre_category_name',
+				$_POST['mercadolibre_category_name']
+			);
+		}
+
+		if ( array_key_exists( 'claroshop_category_code', $_POST ) ) {
+			update_post_meta(
+				$post_id,
+				'_claroshop_category_code',
+				$_POST['claroshop_category_code']
+			);
+		}
+
+		if ( array_key_exists( 'volumen', $_POST ) ) {
+			update_post_meta(
+				$post_id,
+				'_volumen',
+				$_POST['volumen']
 			);
 		}
 	}
