@@ -1,6 +1,6 @@
 {
   "name": "sellercontrol",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "![Antonella Framework](https://antonellaframework.com/wp-content/uploads/2018/06/anonella-repositorio.png)",
   "main": "index.js",
   "scripts": {
