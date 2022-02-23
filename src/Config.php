@@ -47,7 +47,7 @@ class Config
      */
     public $post = [
         'factura_nonce' => __NAMESPACE__ . '\Controller::guardarFacturaCompra',
-
+        'warehouse_nonce' => __NAMESPACE__.'\Productos::guardarCambiosProductos',
     ];
     /**
      * GET data process
@@ -74,12 +74,15 @@ class Config
         ['wp_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarJS', 10, 3],
         ['wp_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarCSS', 10, 3],
         ['wp_enqueue_scripts', __NAMESPACE__.'\Enqueue::obenerDatosTabla', 11, 4],
+        ['wp_enqueue_scripts', __NAMESPACE__.'\Productos::obtenerDatosProductos', 12, 5],
         ['add_meta_boxes', 'SELLERCONTROL\WooMeta::createBoxOtherData',10,5],
         ['add_meta_boxes', __NAMESPACE__.'\WooMeta::createBoxAmazonData',10,5],
         ['add_meta_boxes', __NAMESPACE__.'\WooMeta::createBoxMercadoLibreData',10,5],
         ['admin_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarJSAdmin', 10, 6],
         ['admin_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarCSSAdmin', 10, 7],
-        ['save_post',__NAMESPACE__.'\WooMeta::saveInfo',10,5]
+        ['save_post',__NAMESPACE__.'\WooMeta::saveInfo',10,5],
+        ['wp_ajax_load_post_by_ajax', __NAMESPACE__.'\Productos::load_post_by_ajax_callback', 11,1],
+        ['wp_ajax_nopriv_load_post_by_ajax', __NAMESPACE__.'\Productos::load_post_by_ajax_callback', 11,1]
         //['wp_roles_init', 'SELLERCONTROL\Usuarios::crearUsuario', 10,3],
 
     ];
@@ -92,7 +95,8 @@ class Config
         ['sellercontrol_factura_form', __NAMESPACE__.'\ViewsShortcodes::renderFacturaForm'],
         ['sellercontrol_factura_table', __NAMESPACE__.'\ViewsShortcodes::renderFacturaTable'],
         ['dcms_form_login', __NAMESPACE__.'\ViewsShortcodes::dcms_form_login_config'],
-        ['sellercontrol_scanner', __NAMESPACE__.'\ViewsShortcodes::iniciarScanner']
+        ['sellercontrol_scanner', __NAMESPACE__.'\ViewsShortcodes::iniciarScanner'],
+        ['sellercontrol_productos', __NAMESPACE__.'\Productos::ViewTablaProductos']
     ];
     /**
      * add Gutenberg's blocks

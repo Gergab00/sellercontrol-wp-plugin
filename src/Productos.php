@@ -28,8 +28,19 @@ class Productos
             ob_start();
 
 ?>
+            <form action="<?php get_the_permalink();?>" method="post" id="form_productos">
+            <?php wp_nonce_field('graba_warehouse', 'warehouse_nonce'); ?>
             <h2>Tabla de Productos</h2>
-            <table id="data_productos" width="100%"></table>
+            <div class="row">
+            <div class="d-grid gap-2 col-sm-10 col-md-3">
+            <input type="submit" value="Guardar Cambios">
+            </div>
+            </div>
+            <div class="row">
+            <div class="table-responsive">
+                <table id="data_productos" width="100%" class="table"></table>
+            </div>
+            </div>
 
             <!-- Modal -->
             <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
@@ -49,6 +60,7 @@ class Productos
                 </div>
             </div>
             </div>
+            </form>
 
 <?php
 
@@ -88,6 +100,8 @@ class Productos
         $dataSet = array();
 
         foreach ($products as $producto) {
+            $values			= get_post_custom($producto->id);
+            $check        	= isset($values['_in_warehouse']) ? esc_attr($values['_in_warehouse'][0]) : '';
             $amazon_category = get_post_meta($producto->id, '_amazon_category', true);
             $mercadolibre_category_code    = get_post_meta($producto->id, '_mercadolibre_category_code', true);
             $mercadolibre_category_name    = get_post_meta($producto->id, '_mercadolibre_category_name', true);
@@ -101,7 +115,8 @@ class Productos
                 "amz_cat" => esc_attr($amazon_category),
                 "ml_cat_name" => esc_attr($mercadolibre_category_name),
                 "ml_cat_code" => esc_attr($mercadolibre_category_code),
-                "claro_cat" => esc_attr($claroshop_category_code)
+                "claro_cat" => esc_attr($claroshop_category_code),
+                "in_warehouse" => esc_attr($check),
             );
             array_push($dataSet, $a);
         }
@@ -121,6 +136,24 @@ class Productos
         );
         wp_localize_script('custom-script', 'blog', $script_data_array);
         wp_enqueue_script('custom-script');
+    }
+
+    public static function guardarCambiosProductos()
+    {
+        foreach ($_REQUEST as $clave => $valor) {
+            
+            if(str_contains($clave, 'asin')){
+                //echo "{$clave} => {$valor} ";
+            if(array_key_exists('in_warehouse_'.$valor, $_REQUEST)){
+                
+                update_post_meta($valor, '_in_warehouse', 'on');
+            }else{
+                
+                update_post_meta($valor, '_in_warehouse', 'off');
+            }}
+        }
+
+        echo'<div class="alert alert-primary fade show" role="alert">Registros Actualizados con Éxito!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
     }
 
     function load_post_by_ajax_callback() {
