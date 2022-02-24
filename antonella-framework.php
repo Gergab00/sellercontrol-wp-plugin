@@ -4,7 +4,7 @@ namespace SELLERCONTROL;
 Plugin Name: sellercontrol
 Plugin URI: https://github.com/Gergab00/sellercontrol
 Description: Plugin de control de los seller control.
-Version:1.0.2
+Version:1.1.3
 Author:Gerardo Gabriel González Velázquez
 Author URI: https://github.com/Gergab00
 License: GPLv2 https://es-mx.wordpress.org/about/license/

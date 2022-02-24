@@ -41,25 +41,6 @@ class Productos
                 <table id="data_productos" width="100%" class="table"></table>
             </div>
             </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="postModallLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-                </div>
-            </div>
-            </div>
             </form>
 
 <?php
@@ -109,7 +90,8 @@ class Productos
             $a = array(
                 "id" => [
                     "link" => esc_textarea($producto->id),
-                    "ASIN" => esc_textarea($producto->sku)
+                    "ASIN" => esc_textarea($producto->sku),
+                    "img" => wp_get_attachment_image_src( get_post_thumbnail_id( $producto->id), 'full')[0],
                 ],
                 "name" => esc_textarea($producto->name),
                 "amz_cat" => esc_attr($amazon_category),
