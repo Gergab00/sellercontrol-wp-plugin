@@ -83,22 +83,26 @@ class Productos
         foreach ($products as $producto) {
             $values			= get_post_custom($producto->id);
             $check        	= isset($values['_in_warehouse']) ? esc_attr($values['_in_warehouse'][0]) : '';
+            $in_mercadolibre = isset($values['_in_mercadolibre']) ? esc_attr($values['_in_mercadolibre'][0]) : '';
             $amazon_category = get_post_meta($producto->id, '_amazon_category', true);
             $mercadolibre_category_code    = get_post_meta($producto->id, '_mercadolibre_category_code', true);
             $mercadolibre_category_name    = get_post_meta($producto->id, '_mercadolibre_category_name', true);
             $claroshop_category_code = get_post_meta($producto->id, '_claroshop_category_code', true);
+            $ean = get_post_meta($producto->id, '_ean', true);
             $a = array(
                 "id" => [
                     "link" => esc_textarea($producto->id),
                     "ASIN" => esc_textarea($producto->sku),
                     "img" => wp_get_attachment_image_src( get_post_thumbnail_id( $producto->id), 'full')[0],
+                    "ean" => esc_attr($ean),
+                    "amz_cat" => esc_attr($amazon_category),
                 ],
                 "name" => esc_textarea($producto->name),
-                "amz_cat" => esc_attr($amazon_category),
                 "ml_cat_name" => esc_attr($mercadolibre_category_name),
                 "ml_cat_code" => esc_attr($mercadolibre_category_code),
                 "claro_cat" => esc_attr($claroshop_category_code),
                 "in_warehouse" => esc_attr($check),
+                "in_mercadolibre" => esc_attr($in_mercadolibre),
             );
             array_push($dataSet, $a);
         }
@@ -126,13 +130,28 @@ class Productos
             
             if(str_contains($clave, 'asin')){
                 //echo "{$clave} => {$valor} ";
-            if(array_key_exists('in_warehouse_'.$valor, $_REQUEST)){
-                
-                update_post_meta($valor, '_in_warehouse', 'on');
-            }else{
-                
-                update_post_meta($valor, '_in_warehouse', 'off');
-            }}
+                if(array_key_exists('in_warehouse_'.$valor, $_REQUEST)){
+                    
+                    update_post_meta($valor, '_in_warehouse', 'on');
+                }else{
+                    
+                    update_post_meta($valor, '_in_warehouse', 'off');
+                }
+            }
+            
+            if(str_contains($clave, 'ean')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("ean_", "", $clave);
+                if (array_key_exists('ean_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_ean',
+                        $valor
+                    );
+                }
+
+            }
+            
         }
 
         echo'<div class="alert alert-primary fade show" role="alert">Registros Actualizados con Éxito!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
