@@ -55,18 +55,18 @@ class WooMeta
 				<input type="number" name="volumen" id="volumen" step="0.01" value="<?php echo esc_html($volumen); ?>">
 			</div>
 			<div class="col">
-				<label for="brand_name">Material</label>
-				<input type="text" name="brand_name" id="brand_name" value="<?php echo esc_attr($material); ?>" />
+				<label for="material">Material</label>
+				<input type="text" name="material" id="material" value="<?php echo esc_attr($material); ?>" />
 			</div>
 			<div class="col">
-				<label for="brand_name">Color</label>
-				<input type="text" name="brand_name" id="brand_name" value="<?php echo esc_attr($color); ?>" />
+				<label for=color">Color</label>
+				<input type="text" name=color" id=color" value="<?php echo esc_attr($color); ?>" />
 			</div>
 		</div>
 		<div class="row m-3">
 			<div class="col">
-				<label for="brand_name">Tamaño</label>
-				<input type="text" name="brand_name" id="brand_name" value="<?php echo esc_attr($size); ?>" />
+				<label for="size">Tamaño</label>
+				<input type="text" name="size" id="size" value="<?php echo esc_attr($size); ?>" />
 			</div>
 		</div>
 
