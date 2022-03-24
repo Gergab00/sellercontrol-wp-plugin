@@ -22,12 +22,15 @@ class WooMeta
 		$ean			= get_post_meta($post->ID, '_ean', true);
 		$manufacturer	= get_post_meta($post->ID, '_manufacturer', true);
 		$check        	= isset($values['_in_warehouse']) ? esc_attr($values['_in_warehouse'][0]) : '';
+		$check_ml        = isset($values['_in_mercadolibre']) ? esc_attr($values['_in_mercadolibre'][0]) : '';
+		$check_cl        	= isset($values['_in_claroshop']) ? esc_attr($values['_in_claroshop'][0]) : '';
 		$volumen		= get_post_meta($post->ID, '_volumen', true);
 		$material		= get_post_meta($post->ID, '_material', true);
 		$color			= get_post_meta($post->ID, '_color', true);
 		$size			= get_post_meta($post->ID, '_size', true);
 		$maxage			= get_post_meta($post->ID, '_max_age', true);
 		$minage			= get_post_meta($post->ID, '_min_age', true);
+		$model			= get_post_meta($post->ID, '_model_number', true);
 
 ?>
 		<div class="row">
@@ -60,13 +63,33 @@ class WooMeta
 			</div>
 			<div class="col">
 				<label for=color">Color</label>
-				<input type="text" name=color" id=color" value="<?php echo esc_attr($color); ?>" />
+				<input type="text" name="color" id="color" value="<?php echo esc_attr($color); ?>" />
 			</div>
 		</div>
 		<div class="row m-3">
 			<div class="col">
 				<label for="size">Tamaño</label>
 				<input type="text" name="size" id="size" value="<?php echo esc_attr($size); ?>" />
+			</div>
+			<div class="col">
+				<label for="size">Modelo</label>
+				<input type="text" name="model_number" id="model_number" value="<?php echo esc_attr($model); ?>" />
+			</div>
+		</div>
+		<div class="row m-3">
+			<div class="col">
+				<h3>Activación</h3>
+				<hr>
+			</div>
+		</div>
+		<div class="row m-3">
+			<div class="col">
+				<label for="size">MercadoLibre</label>
+				<input type="checkbox" id="in_mercadolibre" name="in_mercadolibre" <?php checked($check_ml, 'on'); ?> />
+			</div>
+			<div class="col">
+				<label for="size">Claroshop</label>
+				<input type="checkbox" id="in_claroshop" name="in_claroshop" <?php checked($check_cl, 'on'); ?> />
 			</div>
 		</div>
 
@@ -255,8 +278,23 @@ class WooMeta
 			);
 		}
 
+		if (array_key_exists('model_number', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'_model_number',
+				$_POST['model_number']
+			);
+		}
+
 		//Guardado de checkboxes
 		$check = isset($_POST['in_warehouse']) && $_POST['in_warehouse'] ? 'on' : 'off';
 		update_post_meta($post_id, '_in_warehouse', $check);
+
+		$check_ml = isset($_POST['in_mercadolibre']) && $_POST['in_mercadolibre'] ? 'on' : 'off';
+		update_post_meta($post_id, '_in_mercadolibre', $check_ml);
+
+		$check_cl = isset($_POST['in_claroshop']) && $_POST['in_claroshop'] ? 'on' : 'off';
+		update_post_meta($post_id, '_in_claroshop', $check_cl);
+
 	}
 }
