@@ -84,6 +84,7 @@ class Productos
             $values			= get_post_custom($producto->id);
             $check        	= isset($values['_in_warehouse']) ? esc_attr($values['_in_warehouse'][0]) : '';
             $in_mercadolibre = isset($values['_in_mercadolibre']) ? esc_attr($values['_in_mercadolibre'][0]) : '';
+            $in_claroshop = isset($values['_in_claroshop']) ? esc_attr($values['_in_claroshop'][0]) : '';
             $amazon_category = get_post_meta($producto->id, '_amazon_category', true);
             $mercadolibre_category_code    = get_post_meta($producto->id, '_mercadolibre_category_code', true);
             $mercadolibre_category_name    = get_post_meta($producto->id, '_mercadolibre_category_name', true);
@@ -103,6 +104,7 @@ class Productos
                 "claro_cat" => esc_attr($claroshop_category_code),
                 "in_warehouse" => esc_attr($check),
                 "in_mercadolibre" => esc_attr($in_mercadolibre),
+                "in_claroshop" => esc_attr($in_claroshop),
             );
             array_push($dataSet, $a);
         }
@@ -127,7 +129,7 @@ class Productos
     public static function guardarCambiosProductos()
     {
         foreach ($_REQUEST as $clave => $valor) {
-            
+            //echo "{$clave} => {$valor} ";
             if(str_contains($clave, 'asin')){
                 //echo "{$clave} => {$valor} ";
                 if(array_key_exists('in_warehouse_'.$valor, $_REQUEST)){
@@ -136,6 +138,22 @@ class Productos
                 }else{
                     
                     update_post_meta($valor, '_in_warehouse', 'off');
+                }
+
+                if(array_key_exists('in_mercadolibre_'.$valor, $_REQUEST)){
+                    
+                    update_post_meta($valor, '_in_mercadolibre', 'on');
+                }else{
+                    
+                    update_post_meta($valor, '_in_mercadolibre', 'off');
+                }
+
+                if(array_key_exists('in_claroshop_'.$valor, $_REQUEST)){
+                    
+                    update_post_meta($valor, '_in_claroshop', 'on');
+                }else{
+                    
+                    update_post_meta($valor, '_in_claroshop', 'off');
                 }
             }
             
