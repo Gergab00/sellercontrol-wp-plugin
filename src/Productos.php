@@ -73,6 +73,8 @@ class Productos
         $args = array(
             'status' => 'publish',
             'limit' => 1000,
+            'orderby' => 'date',
+            'order' => 'DESC',
         );
         $products = wc_get_products($args);
 
@@ -129,7 +131,7 @@ class Productos
     public static function guardarCambiosProductos()
     {
         foreach ($_REQUEST as $clave => $valor) {
-            //echo "{$clave} => {$valor} ";
+            echo "{$clave} => {$valor} ";
             if(str_contains($clave, 'asin')){
                 //echo "{$clave} => {$valor} ";
                 if(array_key_exists('in_warehouse_'.$valor, $_REQUEST)){
@@ -157,9 +159,9 @@ class Productos
                 }
             }
             
-            if(str_contains($clave, 'ean')){
+            if(str_contains($clave, 'ean')){//Doc Esta función busca enla clave si contiene la palabra ean
                 //echo "{$clave} => {$valor} ";
-                $idPost = str_replace("ean_", "", $clave);
+                $idPost = str_replace("ean_", "", $clave);//Doc Extrae la clave para quedarse con el ID del post
                 if (array_key_exists('ean_'.$idPost, $_REQUEST)) {
                     update_post_meta(
                         $idPost,
@@ -167,7 +169,42 @@ class Productos
                         $valor
                     );
                 }
+            }
 
+            if(str_contains($clave, 'ml_cat_name_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("ml_cat_name_", "", $clave);
+                if (array_key_exists('ml_cat_name_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_mercadolibre_category_name',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'ml_cat_code_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("ml_cat_code_", "", $clave);
+                if (array_key_exists('ml_cat_code_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_mercadolibre_category_code',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'claro_cat_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("claro_cat_", "", $clave);
+                if (array_key_exists('claro_cat_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_claroshop_category_code',
+                        $valor
+                    );
+                }
             }
             
         }
