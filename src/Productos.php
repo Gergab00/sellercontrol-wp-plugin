@@ -92,6 +92,7 @@ class Productos
             $mercadolibre_category_name    = get_post_meta($producto->id, '_mercadolibre_category_name', true);
             $claroshop_category_code = get_post_meta($producto->id, '_claroshop_category_code', true);
             $ean = get_post_meta($producto->id, '_ean', true);
+            $edit = get_home_url().'/wp-admin/post.php?post='.esc_textarea($producto->id).'&action=edit';
             $a = array(
                 "id" => [
                     "link" => esc_textarea($producto->id),
@@ -99,6 +100,7 @@ class Productos
                     "img" => wp_get_attachment_image_src( get_post_thumbnail_id( $producto->id), 'full')[0],
                     "ean" => esc_attr($ean),
                     "amz_cat" => esc_attr($amazon_category),
+                    "editar" => $edit,
                 ],
                 "name" => esc_textarea($producto->name),
                 "ml_cat_name" => esc_attr($mercadolibre_category_name),
@@ -131,7 +133,7 @@ class Productos
     public static function guardarCambiosProductos()
     {
         foreach ($_REQUEST as $clave => $valor) {
-            echo "{$clave} => {$valor} ";
+            //echo "{$clave} => {$valor} ";
             if(str_contains($clave, 'asin')){
                 //echo "{$clave} => {$valor} ";
                 if(array_key_exists('in_warehouse_'.$valor, $_REQUEST)){

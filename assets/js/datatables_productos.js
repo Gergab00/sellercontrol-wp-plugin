@@ -8,7 +8,8 @@
                 data: "id",
                 render: function (data) {
                     asin = data.link;
-                    let ret = '<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#' + data.ASIN + '" aria-controls="offcanvasExample"> <i class="fas fa-search"></i> </button> ' + data.ASIN;
+                    let ret = '<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#' + data.ASIN + '" aria-controls="offcanvasExample"> <i class="fas fa-search"></i> </button> ';
+                    ret += '<a href="' + data.editar + '" class="link-dark" target="_blank">' + data.ASIN + '</a>'
                     ret += '<div class="offcanvas offcanvas-start" tabindex="-1" id="' + data.ASIN + '" aria-labelledby="' + data.ASIN + '">';
                     ret += '<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>';
                     ret += '<div class="offcanvas-body">';
