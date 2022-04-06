@@ -31,65 +31,113 @@ class WooMeta
 		$maxage			= get_post_meta($post->ID, '_max_age', true);
 		$minage			= get_post_meta($post->ID, '_min_age', true);
 		$model			= get_post_meta($post->ID, '_model_number', true);
+		$mercadolibre_category_code	= get_post_meta($post->ID, '_mercadolibre_category_code', true);
+		$mercadolibre_category_name	= get_post_meta($post->ID, '_mercadolibre_category_name', true);
+		$claroshop_category_code = get_post_meta($post->ID, '_claroshop_category_code', true);
+		$forma			= get_post_meta($post->ID, '_forma', true);
+		$personaje		= get_post_meta($post ->ID, '_personaje')
 
 ?>
-		<div class="row">
-			<div class="col">
-				<label for="brand_name">Marca</label>
-				<input type="text" name="brand_name" id="brand_name" value="<?php echo esc_attr($brand_name); ?>" />
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-md-4">
+					<label for="brand_name" class="form-label">Marca</label>
+					<input type="text" class="form-control" name="brand_name" id="brand_name" value="<?php echo esc_attr($brand_name); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="ean" class="form-label">EAN</label>
+					<input type="text" class="form-control" name="ean" id="ean" value="<?php echo esc_attr($ean); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="manufacturer" class="form-label">Fabricante</label>
+					<input type="text" class="form-control" name="manufacturer" id="manufacturer" value="<?php echo esc_html($manufacturer); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4 form-check form-switch">
+					<input type="checkbox" class="form-check-input" role="switch" id="in_warehouse" name="in_warehouse" <?php checked($check, 'on'); ?> />
+					<label for="in_warehouse" class="form-check-label">¿En Almacen?</label>
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="volumen" class="form-label">Volumen(Litros)</label>
+					<input type="number" class="form-control" name="volumen" id="volumen" step="0.01" value="<?php echo esc_html($volumen); ?>">
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="material" class="form-label">Material</label>
+					<input type="text" class="form-control" name="material" id="material" value="<?php echo esc_attr($material); ?>" />
+				</div>
 			</div>
-			<div class="col">
-				<label for="ean">EAN</label>
-				<input type="text" name="ean" id="ean" value="<?php echo esc_attr($ean); ?>" />
-			</div>
-			<div class="col">
-				<label for="manufacturer">Fabricante</label>
-				<input type="text" name="manufacturer" id="manufacturer" value="<?php echo esc_html($manufacturer); ?>" />
-			</div>
-			<div class="col">
-				<input type="checkbox" id="in_warehouse" name="in_warehouse" <?php checked($check, 'on'); ?> />
-				<label for="in_warehouse">¿En Almacen?</label>
-			</div>
-		</div>
 
-		<div class="row m-3">
-			<div class="col">
-				<label for="volumen">Volumen(Litros)</label>
-				<input type="number" name="volumen" id="volumen" step="0.01" value="<?php echo esc_html($volumen); ?>">
+			<div class="row">
+				<div class="col-sm-6 col-md-4">
+					<label for=color" class="form-label">Color</label>
+					<input type="text" class="form-control" name="color" id="color" value="<?php echo esc_attr($color); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="size" class="form-label">Tamaño</label>
+					<input type="text" class="form-control" name="size" id="size" value="<?php echo esc_attr($size); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="model_number" class="form-label">Modelo</label>
+					<input type="text" class="form-control" name="model_number" id="model_number" value="<?php echo esc_attr($model); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="forma" class="form-label">Forma</label>
+					<input type="text" class="form-control" name="forma" id="forma" value="<?php echo esc_attr($forma); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="personaje" class="form-label">Personaje</label>
+					<input type="text" class="form-control" name="forma" id="personaje" value="<?php echo esc_attr($personaje); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					
+					
+				</div>
 			</div>
-			<div class="col">
-				<label for="material">Material</label>
-				<input type="text" name="material" id="material" value="<?php echo esc_attr($material); ?>" />
+
+			<div class="row">
+				<div class="col-sm-6 col-md-4">
+					<label for="mercadolibre_category_code" class="form-label">Código de Categoria de Mercado Libre</label>
+					<input type="text" class="form-control" name="mercadolibre_category_code" id="mercadolibre_category_code" value="<?php echo esc_html($mercadolibre_category_code); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="mercadolibre_category_name" class="form-label">Nombre de la Categoria de Mercado Libre</label>
+					<input type="text" class=form-control" name="mercadolibre_category_name" id="mercadolibre_category_name" value="<?php echo esc_html($mercadolibre_category_name); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+					<label for="claroshop_category_code" class="form-label">Nombre de la Categoria de Claroshop</label>
+					<input type="text" class="form-control" name="claroshop_category_code" id="claroshop_category_code" value="<?php echo esc_html($claroshop_category_code); ?>" />
+				</div>
+				<div class="col-xs-12">
+					<h3>Activación</h3>
+				</div>
+				<div class="col-sm-6 col-md-4 form-check form-switch">
+					<label for="in_mercadolibre" class="form-check-label">MercadoLibre</label>
+					<input type="checkbox" class="form-check-input" role="switch" id="in_mercadolibre" name="in_mercadolibre" <?php checked($check_ml, 'on'); ?> />
+				</div>
+				<div class="col-sm-6 col-md-4 form-check form-switch">
+					<label for="in_claroshop" class="form-check-label">Claroshop</label>
+					<input type="checkbox" class="form-check-input" role="switch" id="in_claroshop" name="in_claroshop" <?php checked($check_cl, 'on'); ?> />
+				</div>
 			</div>
-			<div class="col">
-				<label for=color">Color</label>
-				<input type="text" name="color" id="color" value="<?php echo esc_attr($color); ?>" />
-			</div>
-		</div>
-		<div class="row m-3">
-			<div class="col">
-				<label for="size">Tamaño</label>
-				<input type="text" name="size" id="size" value="<?php echo esc_attr($size); ?>" />
-			</div>
-			<div class="col">
-				<label for="size">Modelo</label>
-				<input type="text" name="model_number" id="model_number" value="<?php echo esc_attr($model); ?>" />
-			</div>
-		</div>
-		<div class="row m-3">
-			<div class="col">
-				<h3>Activación</h3>
-				<hr>
-			</div>
-		</div>
-		<div class="row m-3">
-			<div class="col">
-				<label for="size">MercadoLibre</label>
-				<input type="checkbox" id="in_mercadolibre" name="in_mercadolibre" <?php checked($check_ml, 'on'); ?> />
-			</div>
-			<div class="col">
-				<label for="size">Claroshop</label>
-				<input type="checkbox" id="in_claroshop" name="in_claroshop" <?php checked($check_cl, 'on'); ?> />
+
+			<div class="row">
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
 			</div>
 		</div>
 
@@ -136,35 +184,6 @@ class WooMeta
 					}
 					?>
 				</div>
-			</div>
-		</div>
-	<?php
-	}
-
-	static public function createBoxMercadoLibreData()
-	{
-		add_meta_box('mercadolibre-datos', 'Datos de Mercadolibre del producto', __NAMESPACE__ . '\WooMeta::createFieldsMercadoLibreData', 'product', 'normal', 'high');
-	}
-
-	static public function createFieldsMercadoLibreData($post)
-	{
-		wp_nonce_field('woocommerce_save_data', 'woocommerce_meta_nonce');
-		$mercadolibre_category_code	= get_post_meta($post->ID, '_mercadolibre_category_code', true);
-		$mercadolibre_category_name	= get_post_meta($post->ID, '_mercadolibre_category_name', true);
-		$claroshop_category_code = get_post_meta($post->ID, '_claroshop_category_code', true);
-	?>
-		<div class="row">
-			<div class="col">
-				<label for="mercadolibre_category_code">Código de Categoria de Mercado Libre</label>
-				<input type="text" name="mercadolibre_category_code" id="mercadolibre_category_code" value="<?php echo esc_html($mercadolibre_category_code); ?>" />
-			</div>
-			<div class="col">
-				<label for="mercadolibre_category_name">Nombre de la Categoria de Mercado Libre</label>
-				<input type="text" name="mercadolibre_category_name" id="mercadolibre_category_name" value="<?php echo esc_html($mercadolibre_category_name); ?>" />
-			</div>
-			<div class="col">
-				<label for="claroshop_category_code">Nombre de la Categoria de Claroshop</label>
-				<input type="text" name="claroshop_category_code" id="claroshop_category_code" value="<?php echo esc_html($claroshop_category_code); ?>" />
 			</div>
 		</div>
 <?php
@@ -286,6 +305,22 @@ class WooMeta
 			);
 		}
 
+		if (array_key_exists('forma', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'_forma',
+				$_POST['forma']
+			);
+		}
+
+		if (array_key_exists('personaje', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'_personaje',
+				$_POST['personaje']
+			);
+		}
+
 		//Guardado de checkboxes
 		$check = isset($_POST['in_warehouse']) && $_POST['in_warehouse'] ? 'on' : 'off';
 		update_post_meta($post_id, '_in_warehouse', $check);
@@ -295,6 +330,5 @@ class WooMeta
 
 		$check_cl = isset($_POST['in_claroshop']) && $_POST['in_claroshop'] ? 'on' : 'off';
 		update_post_meta($post_id, '_in_claroshop', $check_cl);
-
 	}
 }

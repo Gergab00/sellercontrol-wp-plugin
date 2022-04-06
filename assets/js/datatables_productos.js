@@ -17,7 +17,11 @@
                     ret += '<img src="' + data.img + '" class="card-img-top">';
                     ret += '<div class="card-body">';
                     ret += '<div class="col-auto"><label for="ean" class="form-label">EAN</label>';
+                    ret += '<input type="text" class="form-control" name="personaje_' + asin + '" value="' + data.personaje + '">';
+                    ret += '</div>';
+                    ret += '<div class="col-auto"><label for="ean" class="form-label">EAN</label>';
                     ret += '<input type="text" class="form-control" name="ean_' + asin + '" value="' + data.ean + '">';
+                    ret += '<div class="invisible">' + data.ean + '</div>'
                     ret += '</div>';
                     ret += '<div class="col-auto"><label for="ean" class="form-label">Categoria Amazon</label>';
                     ret += '<input type="text" class="form-control" name="amz_cat_' + asin + '" value="' + data.amz_cat + '" readonly>';
@@ -43,7 +47,9 @@
                 title: "Código ML",
                 data: "ml_cat_code",
                 render: function (data) {
+                    ml_cod = data;
                     data = '<input type="text" class="form-control" name="ml_cat_code_' + asin + '" value="' + data + '">';
+                    data += '<div class="invisible">' + ml_cod + '</div>'
                     return data;
                 }
             },
@@ -51,7 +57,9 @@
                 title: "Código Claro",
                 data: "claro_cat",
                 render: function (data) {
+                    cl_cod = data;
                     data = '<input type="text" class="form-control" name="claro_cat_' + asin + '" value="' + data + '">';
+                    data += '<div class="invisible">' + cl_cod + '</div>'
                     return data;
                 }
             },

@@ -4,13 +4,15 @@ namespace SELLERCONTROL;
 Plugin Name: sellercontrol
 Plugin URI: https://github.com/Gergab00/sellercontrol
 Description: Plugin de control de los seller control.
-Version:2022.04.01
+Version:2022.04.04
 Author:Gerardo Gabriel González Velázquez
 Author URI: https://github.com/Gergab00
 License: GPLv2 https://es-mx.wordpress.org/about/license/
-PHP Version: 7.0
+Requires at least: 5.2
+Requires PHP:      7.2
 Framework: Antonella Framework for WP
 Framework URI: http://antonellaframework.com
+ * @wordpress-plugin
  * @category Form
  * @package  sellercontrol
  * @author   Gerardo González

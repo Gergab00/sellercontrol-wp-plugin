@@ -93,6 +93,7 @@ class Productos
             $claroshop_category_code = get_post_meta($producto->id, '_claroshop_category_code', true);
             $ean = get_post_meta($producto->id, '_ean', true);
             $edit = get_home_url().'/wp-admin/post.php?post='.esc_textarea($producto->id).'&action=edit';
+            $personaje      = get_post_meta($producto->id, '_personaje', true);
             $a = array(
                 "id" => [
                     "link" => esc_textarea($producto->id),
@@ -101,6 +102,7 @@ class Productos
                     "ean" => esc_attr($ean),
                     "amz_cat" => esc_attr($amazon_category),
                     "editar" => $edit,
+                    "personaje" => esc_attr($personaje),
                 ],
                 "name" => esc_textarea($producto->name),
                 "ml_cat_name" => esc_attr($mercadolibre_category_name),
