@@ -72,7 +72,7 @@ class Productos
     {
         $args = array(
             'status' => 'publish',
-            'limit' => 1000,
+            'limit' => 1200,
             'orderby' => 'date',
             'order' => 'DESC',
         );
@@ -93,7 +93,9 @@ class Productos
             $claroshop_category_code = get_post_meta($producto->id, '_claroshop_category_code', true);
             $ean = get_post_meta($producto->id, '_ean', true);
             $edit = get_home_url().'/wp-admin/post.php?post='.esc_textarea($producto->id).'&action=edit';
-            $personaje      = get_post_meta($producto->id, '_personaje', true);
+            $personaje      = $values['_personaje'][0];
+            $tipo           = $values['_tipo'][0];
+            $escala         = $values['_escala'][0];
             $a = array(
                 "id" => [
                     "link" => esc_textarea($producto->id),
@@ -103,6 +105,8 @@ class Productos
                     "amz_cat" => esc_attr($amazon_category),
                     "editar" => $edit,
                     "personaje" => esc_attr($personaje),
+                    "escala" => esc_attr($escala),
+                    "tipo" => $tipo,
                 ],
                 "name" => esc_textarea($producto->name),
                 "ml_cat_name" => esc_attr($mercadolibre_category_name),
@@ -206,6 +210,42 @@ class Productos
                     update_post_meta(
                         $idPost,
                         '_claroshop_category_code',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'personaje_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("personaje_", "", $clave);
+                if (array_key_exists('personaje_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_personaje',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'tipo_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("tipo_", "", $clave);
+                if (array_key_exists('tipo_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_tipo',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'escala_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("escala_", "", $clave);
+                if (array_key_exists('escala_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_escala',
                         $valor
                     );
                 }

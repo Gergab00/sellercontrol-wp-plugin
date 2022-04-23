@@ -35,7 +35,9 @@ class WooMeta
 		$mercadolibre_category_name	= get_post_meta($post->ID, '_mercadolibre_category_name', true);
 		$claroshop_category_code = get_post_meta($post->ID, '_claroshop_category_code', true);
 		$forma			= get_post_meta($post->ID, '_forma', true);
-		$personaje		= get_post_meta($post ->ID, '_personaje')
+		$personaje		= get_post_meta($post->ID, '_personaje', true);
+		$tipo			= get_post_meta($post->ID, '_tipo', true);
+		$escala			= get_post_meta($post->ID, '_escala', true);
 
 ?>
 		<div class="container">
@@ -85,11 +87,33 @@ class WooMeta
 				</div>
 				<div class="col-sm-6 col-md-4">
 					<label for="personaje" class="form-label">Personaje</label>
-					<input type="text" class="form-control" name="forma" id="personaje" value="<?php echo esc_attr($personaje); ?>" />
+					<input type="text" class="form-control" name="personaje" id="personaje" value="<?php echo esc_attr($personaje); ?>" />
 				</div>
 				<div class="col-sm-6 col-md-4">
-					
-					
+					<label for="tipo" class="form-label">Tipo</label>
+					<input type="text" class="form-control" name="tipo" id="tipo" value="<?php echo esc_attr($tipo); ?>" />
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-6 col-md-4">
+					<label for="escala" class="form-label">Escala</label>
+					<input type="text" class="form-control" name="escala" id="escala" value="<?php echo esc_attr($escala); ?>" />
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
+				</div>
+				<div class="col-sm-6 col-md-4">
+
 				</div>
 			</div>
 
@@ -118,10 +142,10 @@ class WooMeta
 					<input type="checkbox" class="form-check-input" role="switch" id="in_claroshop" name="in_claroshop" <?php checked($check_cl, 'on'); ?> />
 				</div>
 			</div>
-
+			
 			<div class="row">
 				<div class="col-sm-6 col-md-4">
-
+					
 				</div>
 				<div class="col-sm-6 col-md-4">
 
@@ -318,6 +342,22 @@ class WooMeta
 				$post_id,
 				'_personaje',
 				$_POST['personaje']
+			);
+		}
+
+		if (array_key_exists('tipo', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'_tipo',
+				$_POST['tipo']
+			);
+		}
+
+		if (array_key_exists('escala', $_POST)) {
+			update_post_meta(
+				$post_id,
+				'_escala',
+				$_POST['escala']
 			);
 		}
 

@@ -16,15 +16,21 @@
                     ret += '<div class="card" style="width: 18rem;">';
                     ret += '<img src="' + data.img + '" class="card-img-top">';
                     ret += '<div class="card-body">';
-                    ret += '<div class="col-auto"><label for="ean" class="form-label">EAN</label>';
-                    ret += '<input type="text" class="form-control" name="personaje_' + asin + '" value="' + data.personaje + '">';
+                    ret += '<div class="col-auto"><label for="personaje" class="form-label">Personaje</label>';
+                    ret += '<input type="text" class="form-control" id="personaje" name="personaje_' + asin + '" value="' + data.personaje + '">';
+                    ret += '</div>';
+                    ret += '<div class="col-auto"><label for="escala" class="form-label">Escala</label>';
+                    ret += '<input type="text" class="form-control" id="escala" name="escala_' + asin + '" value="' + data.escala + '">';
+                    ret += '</div>';
+                    ret += '<div class="col-auto"><label for="tipo" class="form-label">Tipo</label>';
+                    ret += '<input type="text" class="form-control" id="tipo" name="tipo_' + asin + '" value="' + data.tipo + '">';
                     ret += '</div>';
                     ret += '<div class="col-auto"><label for="ean" class="form-label">EAN</label>';
-                    ret += '<input type="text" class="form-control" name="ean_' + asin + '" value="' + data.ean + '">';
+                    ret += '<input type="text" class="form-control" id="ean" name="ean_' + asin + '" value="' + data.ean + '">';
                     ret += '<div class="invisible">' + data.ean + '</div>'
                     ret += '</div>';
-                    ret += '<div class="col-auto"><label for="ean" class="form-label">Categoria Amazon</label>';
-                    ret += '<input type="text" class="form-control" name="amz_cat_' + asin + '" value="' + data.amz_cat + '" readonly>';
+                    ret += '<div class="col-auto"><label for="amz_cat" class="form-label">Categoria Amazon</label>';
+                    ret += '<input type="text" class="form-control" id="amz_cat" name="amz_cat_' + asin + '" value="' + data.amz_cat + '" readonly>';
                     ret += '</div>';
                     ret += '</div></div>';
                     ret += '</div></div>';
