@@ -72,7 +72,7 @@ class Productos
     {
         $args = array(
             'status' => 'publish',
-            'limit' => 1200,
+            'limit' => 5000,
             'orderby' => 'date',
             'order' => 'DESC',
         );

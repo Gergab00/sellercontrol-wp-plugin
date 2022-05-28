@@ -14,8 +14,9 @@
                     ret += '<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>';
                     ret += '<div class="offcanvas-body">';
                     ret += '<div class="card" style="width: 18rem;">';
-                    ret += '<img src="' + data.img + '" class="card-img-top">';
+                    //ret += '<img src="' + data.img + '" class="card-img-top">';
                     ret += '<div class="card-body">';
+                    ret += '<div class="col-auto"><a target="_blank" href="' + data.img + '" class="btn btn-primary">Ver Imagen &nbsp;<i class="fas fa-external-link" aria-hidden="true"></i></a></div>';
                     ret += '<div class="col-auto"><label for="personaje" class="form-label">Personaje</label>';
                     ret += '<input type="text" class="form-control" id="personaje" name="personaje_' + asin + '" value="' + data.personaje + '">';
                     ret += '</div>';
