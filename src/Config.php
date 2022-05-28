@@ -77,7 +77,6 @@ class Config
         ['wp_enqueue_scripts', __NAMESPACE__.'\Productos::obtenerDatosProductos', 12, 5],
         ['add_meta_boxes', 'SELLERCONTROL\WooMeta::createBoxOtherData',10,5],
         ['add_meta_boxes', __NAMESPACE__.'\WooMeta::createBoxAmazonData',10,5],
-        ['add_meta_boxes', __NAMESPACE__.'\WooMeta::createBoxMercadoLibreData',10,5],
         ['admin_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarJSAdmin', 10, 6],
         ['admin_enqueue_scripts', __NAMESPACE__.'\Enqueue::insertarCSSAdmin', 10, 7],
         ['save_post',__NAMESPACE__.'\WooMeta::saveInfo',10,5],

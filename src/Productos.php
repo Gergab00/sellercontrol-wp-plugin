@@ -41,25 +41,6 @@ class Productos
                 <table id="data_productos" width="100%" class="table"></table>
             </div>
             </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="postModallLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-                </div>
-            </div>
-            </div>
             </form>
 
 <?php
@@ -91,7 +72,9 @@ class Productos
     {
         $args = array(
             'status' => 'publish',
-            'limit' => 1000,
+            'limit' => 5000,
+            'orderby' => 'date',
+            'order' => 'DESC',
         );
         $products = wc_get_products($args);
 
@@ -102,21 +85,36 @@ class Productos
         foreach ($products as $producto) {
             $values			= get_post_custom($producto->id);
             $check        	= isset($values['_in_warehouse']) ? esc_attr($values['_in_warehouse'][0]) : '';
+            $in_mercadolibre = isset($values['_in_mercadolibre']) ? esc_attr($values['_in_mercadolibre'][0]) : '';
+            $in_claroshop = isset($values['_in_claroshop']) ? esc_attr($values['_in_claroshop'][0]) : '';
             $amazon_category = get_post_meta($producto->id, '_amazon_category', true);
             $mercadolibre_category_code    = get_post_meta($producto->id, '_mercadolibre_category_code', true);
             $mercadolibre_category_name    = get_post_meta($producto->id, '_mercadolibre_category_name', true);
             $claroshop_category_code = get_post_meta($producto->id, '_claroshop_category_code', true);
+            $ean = get_post_meta($producto->id, '_ean', true);
+            $edit = get_home_url().'/wp-admin/post.php?post='.esc_textarea($producto->id).'&action=edit';
+            $personaje      = $values['_personaje'][0];
+            $tipo           = $values['_tipo'][0];
+            $escala         = $values['_escala'][0];
             $a = array(
                 "id" => [
                     "link" => esc_textarea($producto->id),
-                    "ASIN" => esc_textarea($producto->sku)
+                    "ASIN" => esc_textarea($producto->sku),
+                    "img" => wp_get_attachment_image_src( get_post_thumbnail_id( $producto->id), 'full')[0],
+                    "ean" => esc_attr($ean),
+                    "amz_cat" => esc_attr($amazon_category),
+                    "editar" => $edit,
+                    "personaje" => esc_attr($personaje),
+                    "escala" => esc_attr($escala),
+                    "tipo" => $tipo,
                 ],
                 "name" => esc_textarea($producto->name),
-                "amz_cat" => esc_attr($amazon_category),
                 "ml_cat_name" => esc_attr($mercadolibre_category_name),
                 "ml_cat_code" => esc_attr($mercadolibre_category_code),
                 "claro_cat" => esc_attr($claroshop_category_code),
                 "in_warehouse" => esc_attr($check),
+                "in_mercadolibre" => esc_attr($in_mercadolibre),
+                "in_claroshop" => esc_attr($in_claroshop),
             );
             array_push($dataSet, $a);
         }
@@ -141,16 +139,118 @@ class Productos
     public static function guardarCambiosProductos()
     {
         foreach ($_REQUEST as $clave => $valor) {
-            
+            //echo "{$clave} => {$valor} ";
             if(str_contains($clave, 'asin')){
                 //echo "{$clave} => {$valor} ";
-            if(array_key_exists('in_warehouse_'.$valor, $_REQUEST)){
-                
-                update_post_meta($valor, '_in_warehouse', 'on');
-            }else{
-                
-                update_post_meta($valor, '_in_warehouse', 'off');
-            }}
+                if(array_key_exists('in_warehouse_'.$valor, $_REQUEST)){
+                    
+                    update_post_meta($valor, '_in_warehouse', 'on');
+                }else{
+                    
+                    update_post_meta($valor, '_in_warehouse', 'off');
+                }
+
+                if(array_key_exists('in_mercadolibre_'.$valor, $_REQUEST)){
+                    
+                    update_post_meta($valor, '_in_mercadolibre', 'on');
+                }else{
+                    
+                    update_post_meta($valor, '_in_mercadolibre', 'off');
+                }
+
+                if(array_key_exists('in_claroshop_'.$valor, $_REQUEST)){
+                    
+                    update_post_meta($valor, '_in_claroshop', 'on');
+                }else{
+                    
+                    update_post_meta($valor, '_in_claroshop', 'off');
+                }
+            }
+            
+            if(str_contains($clave, 'ean')){//Doc Esta función busca enla clave si contiene la palabra ean
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("ean_", "", $clave);//Doc Extrae la clave para quedarse con el ID del post
+                if (array_key_exists('ean_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_ean',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'ml_cat_name_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("ml_cat_name_", "", $clave);
+                if (array_key_exists('ml_cat_name_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_mercadolibre_category_name',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'ml_cat_code_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("ml_cat_code_", "", $clave);
+                if (array_key_exists('ml_cat_code_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_mercadolibre_category_code',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'claro_cat_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("claro_cat_", "", $clave);
+                if (array_key_exists('claro_cat_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_claroshop_category_code',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'personaje_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("personaje_", "", $clave);
+                if (array_key_exists('personaje_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_personaje',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'tipo_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("tipo_", "", $clave);
+                if (array_key_exists('tipo_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_tipo',
+                        $valor
+                    );
+                }
+            }
+
+            if(str_contains($clave, 'escala_')){
+                //echo "{$clave} => {$valor} ";
+                $idPost = str_replace("escala_", "", $clave);
+                if (array_key_exists('escala_'.$idPost, $_REQUEST)) {
+                    update_post_meta(
+                        $idPost,
+                        '_escala',
+                        $valor
+                    );
+                }
+            }
+            
         }
 
         echo'<div class="alert alert-primary fade show" role="alert">Registros Actualizados con Éxito!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
